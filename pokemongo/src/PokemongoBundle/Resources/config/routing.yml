@@ -2,9 +2,14 @@ pokemongo_feature:
     resource: "@PokemongoBundle/Resources/config/routing/feature.yml"
     prefix:   /feature
 
-pokemon_show:
+pokemon_index:
     path:     /
     defaults: { _controller: "PokemongoBundle:feature:index" }
+    methods:  GET
+
+pokemon_show:
+    path:     /{id}
+    defaults: { _controller: "PokemongoBundle:feature:show" }
     methods:  GET
 
 pokemon_new:
@@ -21,3 +26,7 @@ pokemon_delete:
     path:     /{id}/delete
     defaults: { _controller: "PokemongoBundle:feature:delete" }
     methods:  DELETE
+
+post_com:
+    path:     /comment/{id}
+    defaults: { _controller: PokemongoBundle:feature:newCom }

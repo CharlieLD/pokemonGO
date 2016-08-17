@@ -29,11 +29,16 @@ class Comment
      */
     private $comment;
 
+    /**
+     * @var int
+     */
+    private $idfeature;
+
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -56,7 +61,7 @@ class Comment
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -79,7 +84,7 @@ class Comment
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -102,10 +107,33 @@ class Comment
     /**
      * Get comment
      *
-     * @return string 
+     * @return string
      */
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Set idfeature
+     *
+     * @param integer $idfeature
+     * @return Comment
+     */
+    public function setIdfeature($idfeature)
+    {
+        $this->idfeature = $idfeature;
+
+        return $this;
+    }
+
+    /**
+     * Get idfeature
+     *
+     * @return integer
+     */
+    public function getIdfeature()
+    {
+        return $this->idfeature;
     }
 }

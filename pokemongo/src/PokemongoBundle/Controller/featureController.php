@@ -4,9 +4,10 @@ namespace PokemongoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\HttpFoundation\File\File;
 use PokemongoBundle\Entity\feature;
 use PokemongoBundle\Form\FeatureType;
+use PokemongoBundle\Form\FeatureeditType;
 use PokemongoBundle\Entity\Comment;
 use PokemongoBundle\Form\CommentType;
 
@@ -20,29 +21,30 @@ class featureController extends Controller
      * Lists all feature entities.
      *
      */
-    public function newComAction(Request $request)
+    public function newComAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $feature = $em->getRepository('PokemongoBundle:Feature')->findOneById();
+        $feature = $em->getRepository('PokemongoBundle:feature')->findOneById($id);
+        $allComment = $em->getRepository('PokemongoBundle:Comment')->findByIdfeature($id);
 
-        $commentaire = new Commentaire();
-        $form = $this->createForm('PokemonBundle\Form\CommentType', $commentaire);
-        $form->handleRequest($request);
+        $title = $request->request->get('titre');
+        $contenu = $request->request->get('contenu');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($commentaire);
-            $em->flush();
+        $commentaire = new Comment();
 
-            return $this->redirectToRoute('pokemon_show', array(
-                'id' => $feature->getId(),
-            ));
-        }
+        $commentaire->setTitle($title);
+        $commentaire->setComment($contenu);
+        $commentaire->setIdfeature($id);
 
-    return $this->render('PokemongoBundle:feature:show.html.twig', array(
-        'feature' => $feature,
-        'form' => $form->createView(),
-    ));
+        $em->persist($commentaire);
+        $em->flush();
+
+        return $this->redirectToRoute('pokemon_show', array(
+            'id' => $feature->getId(),
+            'allComment' => $allComment,
+            'feature' => $feature,
+        ));
     }
     public function indexAction(Request $request)
     {
@@ -71,19 +73,18 @@ class featureController extends Controller
 
             $dateprise = $request->request->get('date');
 
-            $photo = $feature->getFile();
+            $photo = $feature->getPicture();
 
             $photoName = md5(uniqid()).'.'.$photo->guessExtension();
             $photoDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/feature';
             $photo->move($photoDir, $photoName);
 
-            $feature->setFile($photoName);
+            $feature->setPicture($photoName);
             $feature->setDateTaken($dateprise);
 
             $em->persist($feature);
             $em->flush();
 
-            return $this->redirectToRoute('feature_show', array('id' => $feature->getId()));
         }
 
         return $this->render('PokemongoBundle:feature:new.html.twig', array(
@@ -96,9 +97,11 @@ class featureController extends Controller
      * Finds and displays a feature entity.
      *
      */
-    public function showAction(feature $feature)
+    public function showAction(feature $feature, $id)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $allComment = $em->getRepository('PokemongoBundle:Comment')->findByIdfeature($id);
 
 
         $deleteForm = $this->createDeleteForm($feature);
@@ -106,6 +109,7 @@ class featureController extends Controller
         return $this->render('PokemongoBundle:feature:show.html.twig', array(
             'feature' => $feature,
             'delete_form' => $deleteForm->createView(),
+            'allComment' => $allComment,
         ));
     }
 
@@ -117,10 +121,10 @@ class featureController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $feature = $em->getRepository('PokemongoBundle:Feature')->findOneById($id);
+        $feature = $em->getRepository('PokemongoBundle:feature')->findOneById($id);
 
         $deleteForm = $this->createDeleteForm($feature);
-        $editForm = $this->createForm('PokemongoBundle\Form\FeatureType', $feature);
+        $editForm = $this->createForm('PokemongoBundle\Form\FeatureeditType', $feature);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

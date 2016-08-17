@@ -14,7 +14,10 @@ PokemongoBundle\Entity\Comment:
             length: 255
         date:
             type: datetime
+            nullable: true
         comment:
             type: string
             length: 255
+        idfeature:
+            type: integer
     lifecycleCallbacks: {  }

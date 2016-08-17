@@ -1,29 +1,51 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link href="{{ asset('bundles/pokemongo/css/style.css') }}" type="text/css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+{% endblock %}
+
+
 {% block body %}
 
+
+    <div class="nav_header" xmlns="http://www.w3.org/1999/html">
+        <nav>
+            <ul>
+                <li><a href="{{ path("homepage") }}" title="Télécharger">Accueil</a></li>
+                <li><a href="{{ path("feature_index") }}" title="Télécharger">Pokemon</a></li>
+                <li><a href="{{ path("feature_new") }}" title="Télécharger">New pokemon</a></li>
+                <li><a href="{{ path("feature_show") }}" title="Télécharger">Show</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <h1>feature list</h1>
 
     <table>
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Picture</th>
-                <th>Datetaken</th>
-                <th>Pointlife</th>
-                <th>Pointcombat</th>
-                <th>Xp</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Picture</th>
+            <th>Datetaken</th>
+            <th>Pointlife</th>
+            <th>Pointcombat</th>
+            <th>Xp</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for feature in features %}
             <tr>
                 <td><a href="{{ path('feature_show', { 'id': feature.id }) }}">{{ feature.id }}</a></td>
                 <td>{{ feature.name }}</td>
-                <td>{{ feature.picture }}</td>
+                <td>
+                    <img style="width:50px; height:50px" class="picture" src="{{ asset('uploads/feature/' ~ feature.picture) }}" />
+                </td>
                 <td>{{ feature.dateTaken }}</td>
                 <td>{{ feature.pointLife }}</td>
                 <td>{{ feature.pointCombat }}</td>

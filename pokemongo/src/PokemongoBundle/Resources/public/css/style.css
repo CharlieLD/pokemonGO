@@ -1,0 +1,32 @@
+
+.nav_header ul{
+    text-align: center;
+    padding-left: 0;
+    padding: 15px;
+}
+
+.nav_header li{
+    display: inline-block;
+    margin: 0 30px;
+}
+
+a {
+    text-decoration: none;
+    color: grey;
+    letter-spacing: 15px;
+    font-size: 20px;
+}
+
+th {
+    text-align: center;
+    font-size: 15px;
+}
+
+td, th {
+    padding: 40px;
+    color: grey;
+}
+
+td {
+    text-align: center;
+}
