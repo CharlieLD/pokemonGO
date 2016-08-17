@@ -1,0 +1,4 @@
+services:
+#    pokemongo.example:
+#        class: PokemongoBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

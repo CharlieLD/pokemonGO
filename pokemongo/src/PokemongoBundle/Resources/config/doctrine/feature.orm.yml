@@ -1,0 +1,31 @@
+PokemongoBundle\Entity\feature:
+    type: entity
+    table: null
+    repositoryClass: PokemongoBundle\Repository\featureRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        picture:
+            type: string
+            length: 255
+        dateTaken:
+            type: string
+            length: 255
+            column: date_taken
+        pointLife:
+            type: integer
+            column: point_life
+        pointCombat:
+            type: string
+            length: 255
+            column: point_combat
+        xp:
+            type: integer
+    lifecycleCallbacks: {  }

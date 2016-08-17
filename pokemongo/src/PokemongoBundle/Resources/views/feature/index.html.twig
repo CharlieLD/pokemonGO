@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <h1>feature list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Picture</th>
+                <th>Datetaken</th>
+                <th>Pointlife</th>
+                <th>Pointcombat</th>
+                <th>Xp</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for feature in features %}
+            <tr>
+                <td><a href="{{ path('feature_show', { 'id': feature.id }) }}">{{ feature.id }}</a></td>
+                <td>{{ feature.name }}</td>
+                <td>{{ feature.picture }}</td>
+                <td>{{ feature.dateTaken }}</td>
+                <td>{{ feature.pointLife }}</td>
+                <td>{{ feature.pointCombat }}</td>
+                <td>{{ feature.xp }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('feature_show', { 'id': feature.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('feature_edit', { 'id': feature.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('feature_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

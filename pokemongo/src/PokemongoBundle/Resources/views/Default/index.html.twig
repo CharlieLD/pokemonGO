@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('bundles/pokemongo/css/style.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+<div class="nav_header" xmlns="http://www.w3.org/1999/html">
+    <nav>
+        <ul>
+            <li><a href="{{ path("homepage") }}" title="Télécharger">Accueil</a></li>
+            <li><a href="{{ path("homepage") }}" title="Télécharger">Category</a></li>
+            <li><a href="{{ path("homepage") }}" title="Télécharger">New pokemon</a></li>
+            <li><a href="{{ path("homepage") }}" title="Télécharger">Again</a></li>
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}

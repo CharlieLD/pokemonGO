@@ -1,0 +1,66 @@
+PokemongoBundle\Entity\category:
+    type: entity
+    table: null
+    repositoryClass: PokemongoBundle\Repository\categoryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        acier:
+            type: string
+            length: 255
+        bird:
+            type: string
+            length: 255
+        combat:
+            type: string
+            length: 255
+        dragon:
+            type: string
+            length: 255
+        eau:
+            type: string
+            length: 255
+        feu:
+            type: string
+            length: 255
+        glace:
+            type: string
+            length: 255
+        insecte:
+            type: string
+            length: 255
+        normal:
+            type: string
+            length: 255
+        plante:
+            type: string
+            length: 255
+        poison:
+            type: string
+            length: 255
+        psy:
+            type: string
+            length: 255
+        roche:
+            type: string
+            length: 255
+        sol:
+            type: string
+            length: 255
+        spectre:
+            type: string
+            length: 255
+        tenebres:
+            type: string
+            length: 255
+        vol:
+            type: string
+            length: 255
+        electrik:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

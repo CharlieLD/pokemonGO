@@ -1,0 +1,24 @@
+feature_index:
+    path:     /
+    defaults: { _controller: "PokemongoBundle:feature:index" }
+    methods:  GET
+
+feature_show:
+    path:     /{id}/show
+    defaults: { _controller: "PokemongoBundle:feature:show" }
+    methods:  GET
+
+feature_new:
+    path:     /new
+    defaults: { _controller: "PokemongoBundle:feature:new" }
+    methods:  [GET, POST]
+
+feature_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "PokemongoBundle:feature:edit" }
+    methods:  [GET, POST]
+
+feature_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "PokemongoBundle:feature:delete" }
+    methods:  DELETE
