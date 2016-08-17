@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-class featureType extends AbstractType
+class FeatureType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,7 +17,6 @@ class featureType extends AbstractType
         $builder
             ->add('name')
             ->add('picture', FileType::class, array('label' => 'photo (jpg file)'))
-            ->add('dateTaken')
             ->add('pointLife')
             ->add('pointCombat')
             ->add('xp')

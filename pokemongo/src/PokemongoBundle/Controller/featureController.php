@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use PokemongoBundle\Entity\feature;
 use PokemongoBundle\Form\FeatureType;
+use PokemongoBundle\Entity\Comment;
+use PokemongoBundle\Form\CommentType;
 
 /**
  * feature controller.
@@ -18,7 +20,7 @@ class featureController extends Controller
      * Lists all feature entities.
      *
      */
-    public function newComAction()
+    public function newComAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -37,12 +39,12 @@ class featureController extends Controller
             ));
         }
 
-        return $this->render('PokemongoBundle:feature:show.html.twig', array(
-            'feature' => $feature,
-            'form' => $form->createView(),
-        ));
+    return $this->render('PokemongoBundle:feature:show.html.twig', array(
+        'feature' => $feature,
+        'form' => $form->createView(),
+    ));
     }
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -60,12 +62,14 @@ class featureController extends Controller
     public function newAction(Request $request)
     {
         $feature = new feature();
-        $form = $this->createForm('PokemongoBundle\Form\featureType', $feature);
+        $form = $this->createForm('PokemongoBundle\Form\FeatureType', $feature);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            $dateprise = $request->request->get('date');
 
             $photo = $feature->getFile();
 
@@ -74,6 +78,7 @@ class featureController extends Controller
             $photo->move($photoDir, $photoName);
 
             $feature->setFile($photoName);
+            $feature->setDateTaken($dateprise);
 
             $em->persist($feature);
             $em->flush();
@@ -93,6 +98,9 @@ class featureController extends Controller
      */
     public function showAction(feature $feature)
     {
+        $em = $this->getDoctrine()->getManager();
+
+
         $deleteForm = $this->createDeleteForm($feature);
 
         return $this->render('PokemongoBundle:feature:show.html.twig', array(
@@ -105,10 +113,14 @@ class featureController extends Controller
      * Displays a form to edit an existing feature entity.
      *
      */
-    public function editAction(Request $request, feature $feature)
+    public function editAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $feature = $em->getRepository('PokemongoBundle:Feature')->findOneById($id);
+
         $deleteForm = $this->createDeleteForm($feature);
-        $editForm = $this->createForm('PokemongoBundle\Form\featureType', $feature);
+        $editForm = $this->createForm('PokemongoBundle\Form\FeatureType', $feature);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -116,7 +128,7 @@ class featureController extends Controller
             $em->persist($feature);
             $em->flush();
 
-            return $this->redirectToRoute('feature_edit', array('id' => $feature->getId()));
+            return $this->redirectToRoute('feature_edit', array('id' => $id));
         }
 
         return $this->render('PokemongoBundle:feature:edit.html.twig', array(
@@ -130,8 +142,12 @@ class featureController extends Controller
      * Deletes a feature entity.
      *
      */
-    public function deleteAction(Request $request, feature $feature)
+    public function deleteAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $feature = $em->getRepository('PokemongoBundle:Feature')->findOneById($id);
+
         $form = $this->createDeleteForm($feature);
         $form->handleRequest($request);
 
@@ -157,6 +173,6 @@ class featureController extends Controller
             ->setAction($this->generateUrl('feature_delete', array('id' => $feature->getId())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 }

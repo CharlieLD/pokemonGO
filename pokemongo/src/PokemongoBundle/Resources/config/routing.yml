@@ -2,14 +2,9 @@ pokemongo_feature:
     resource: "@PokemongoBundle/Resources/config/routing/feature.yml"
     prefix:   /feature
 
-pokemon_index:
-    path:     /
-    defaults: { _controller: "PokemongoBundle:views:feature:index" }
-    methods:  GET
-
 pokemon_show:
     path:     /
-    defaults: { _controller: "PokemongoBundle:feature:show" }
+    defaults: { _controller: "PokemongoBundle:feature:index" }
     methods:  GET
 
 pokemon_new:

@@ -4,8 +4,10 @@
     <h1>feature creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+    {{ form_widget(form) }}
+    <label> Date De Capture </label>
+    <input type="string" name="date" value="{{ "now"|date("d/m/Y") }}"/>
+    <input type="submit" value="Create" />
     {{ form_end(form) }}
 
     <ul>
